@@ -8,7 +8,7 @@ GitHub Actions has become an indispensable tool for developers to automate CI/CD
 
 ### **Benefits of Self-Hosting**
 
-1. **Cost Savings**: GitHub-hosted runners charge usage fees after a certain threshold. Self-hosting eliminates or reduces these costs.
+1. **Cost Savings**: GitHub-hosted runners charge usage fees after a certain threshold. Self-hosting eliminates or reduces these costs, especially as they can be used on private repos.
 2. **Customization**: Configure the environment, tools, and resources as per project needs.
 3. **Performance Control**: Monitor and manage resources directly.
 4. **Always-On Availability**: Raspberry Pi can be set up to run 24/7, ensuring consistent availability for workflows.
