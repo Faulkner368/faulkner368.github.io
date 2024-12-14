@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>How to Use Raspberry Pi for Self-Hosting GitHub Action Runners: A Comprehensive Guide | Faulkners Dev Blog</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="How to Use Raspberry Pi for Self-Hosting GitHub Action Runners: A Comprehensive Guide" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="How to Use Raspberry Pi for Self-Hosting GitHub Action Runners: A Comprehensive Guide" />
+<meta property="og:description" content="How to Use Raspberry Pi for Self-Hosting GitHub Action Runners: A Comprehensive Guide" />
+<link rel="canonical" href="https://faulkner368.github.io/2024/12/14/github-actions-self-hosted-runners-with-raspberry-pi.html" />
+<meta property="og:url" content="https://faulkner368.github.io/2024/12/14/github-actions-self-hosted-runners-with-raspberry-pi.html" />
+<meta property="og:site_name" content="Faulkners Dev Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-12-14T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="How to Use Raspberry Pi for Self-Hosting GitHub Action Runners: A Comprehensive Guide" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-12-14T00:00:00+00:00","datePublished":"2024-12-14T00:00:00+00:00","description":"How to Use Raspberry Pi for Self-Hosting GitHub Action Runners: A Comprehensive Guide","headline":"How to Use Raspberry Pi for Self-Hosting GitHub Action Runners: A Comprehensive Guide","mainEntityOfPage":{"@type":"WebPage","@id":"https://faulkner368.github.io/2024/12/14/github-actions-self-hosted-runners-with-raspberry-pi.html"},"url":"https://faulkner368.github.io/2024/12/14/github-actions-self-hosted-runners-with-raspberry-pi.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://faulkner368.github.io/feed.xml" title="Faulkners Dev Blog" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Faulkners Dev Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">How to Use Raspberry Pi for Self-Hosting GitHub Action Runners: A Comprehensive Guide</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2024-12-14T00:00:00+00:00" itemprop="datePublished">Dec 14, 2024
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h1 id="how-to-use-raspberry-pi-for-self-hosting-github-action-runners-a-comprehensive-guide">How to Use Raspberry Pi for Self-Hosting GitHub Action Runners: A Comprehensive Guide</h1>
+
+<p>GitHub Actions has become an indispensable tool for developers to automate CI/CD pipelines. While GitHub provides hosted runners, self-hosting GitHub Action runners can give you more control, reduce costs, and utilize your own hardware efficiently. In this guide, we’ll explore how to use a <strong>Raspberry Pi</strong> for self-hosting GitHub Action runners, including detailed setup instructions, benefits, and tips to optimize performance.</p>
+
+<hr />
+
+<h2 id="why-use-raspberry-pi-for-self-hosting-github-action-runners"><strong>Why Use Raspberry Pi for Self-Hosting GitHub Action Runners?</strong></h2>
+
+<h3 id="benefits-of-self-hosting"><strong>Benefits of Self-Hosting</strong></h3>
+
+<ol>
+  <li><strong>Cost Savings</strong>: GitHub-hosted runners charge usage fees after a certain threshold. Self-hosting eliminates or reduces these costs.</li>
+  <li><strong>Customization</strong>: Configure the environment, tools, and resources as per project needs.</li>
+  <li><strong>Performance Control</strong>: Monitor and manage resources directly.</li>
+  <li><strong>Always-On Availability</strong>: Raspberry Pi can be set up to run 24/7, ensuring consistent availability for workflows.</li>
+</ol>
+
+<h3 id="advantages-of-raspberry-pi"><strong>Advantages of Raspberry Pi</strong></h3>
+
+<ul>
+  <li><strong>Low Power Consumption</strong>: Ideal for running 24/7 with minimal electricity costs.</li>
+  <li><strong>Compact Form Factor</strong>: Fits easily in any workspace.</li>
+  <li><strong>Affordable</strong>: Raspberry Pi models (like the 4B) offer excellent value for self-hosting.</li>
+  <li><strong>Open-Source Friendly</strong>: Raspberry Pi supports various Linux-based OSes, ensuring compatibility with GitHub Actions.</li>
+</ul>
+
+<hr />
+
+<h2 id="getting-started-prerequisites"><strong>Getting Started: Prerequisites</strong></h2>
+
+<h3 id="hardware-requirements"><strong>Hardware Requirements</strong></h3>
+
+<ul>
+  <li>A Raspberry Pi 4B or newer (4GB RAM recommended for better performance).</li>
+  <li>MicroSD card (16GB or larger) with a suitable OS.</li>
+  <li>Power supply and cooling solution (optional but recommended for stability).</li>
+</ul>
+
+<h3 id="software-requirements"><strong>Software Requirements</strong></h3>
+
+<ul>
+  <li><strong>Raspberry Pi OS</strong> (Lite version recommended for headless setup).</li>
+  <li>GitHub Personal Access Token (PAT) with appropriate repository permissions.</li>
+  <li>Docker (for containerized runners).</li>
+  <li>GitHub Actions runner binary (provided by GitHub).</li>
+</ul>
+
+<hr />
+
+<h2 id="step-by-step-guide-to-setting-up-raspberry-pi-for-github-action-runners"><strong>Step-by-Step Guide to Setting Up Raspberry Pi for GitHub Action Runners</strong></h2>
+
+<h3 id="1-prepare-your-raspberry-pi"><strong>1. Prepare Your Raspberry Pi</strong></h3>
+
+<ol>
+  <li><strong>Install Raspberry Pi OS</strong>:
+    <ul>
+      <li>Download the latest <a href="https://www.raspberrypi.org/software/">Raspberry Pi OS Lite</a>.</li>
+      <li>Use tools like <a href="https://www.raspberrypi.org/software/">Raspberry Pi Imager</a> to flash the OS onto your microSD card.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Enable SSH</strong>:</p>
+
+    <ul>
+      <li>Create an empty file named <code class="language-plaintext highlighter-rouge">ssh</code> in the <code class="language-plaintext highlighter-rouge">/boot</code> partition of the microSD card to enable SSH on boot.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Boot the Raspberry Pi</strong>:</p>
+
+    <ul>
+      <li>Insert the microSD card into the Raspberry Pi, power it up, and connect it to your local network.</li>
+    </ul>
+  </li>
+  <li><strong>Update and Upgrade Packages</strong>:
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update <span class="o">&amp;&amp;</span> <span class="nb">sudo </span>apt upgrade <span class="nt">-y</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<hr />
+
+<h3 id="2-install-necessary-software"><strong>2. Install Necessary Software</strong></h3>
+
+<ol>
+  <li>
+    <p><strong>Install Docker</strong>:
+Docker helps isolate the runner in a container, ensuring stability.</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-fsSL</span> https://get.docker.com <span class="nt">-o</span> get-docker.sh
+sh get-docker.sh
+<span class="nb">sudo </span>usermod <span class="nt">-aG</span> docker <span class="nv">$USER</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Install Dependencies</strong>:
+Install basic utilities required for the GitHub Actions runner.</p>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> curl git
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<hr />
+
+<h3 id="3-configure-the-github-actions-runner"><strong>3. Configure the GitHub Actions Runner</strong></h3>
+
+<ol>
+  <li>
+    <p><strong>Generate a GitHub PAT</strong>:</p>
+
+    <ul>
+      <li>Navigate to your GitHub account settings &gt; Developer Settings &gt; Personal Access Tokens.</li>
+      <li>Create a new PAT with <code class="language-plaintext highlighter-rouge">repo</code> and <code class="language-plaintext highlighter-rouge">workflow</code> scopes. Save this token securely.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Download the Runner Software</strong>:</p>
+
+    <ul>
+      <li>Navigate to the repository or organization where you want the runner.</li>
+      <li>Go to Settings &gt; Actions &gt; Runners &gt; New Self-Hosted Runner.</li>
+      <li>Copy the URL for the runner binary and download it onto the Raspberry Pi:
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir </span>actions-runner <span class="o">&amp;&amp;</span> <span class="nb">cd </span>actions-runner
+curl <span class="nt">-o</span> actions-runner-linux-arm64-2.308.0.tar.gz <span class="nt">-L</span> https://github.com/actions/runner/releases/download/v2.308.0/actions-runner-linux-arm64-2.308.0.tar.gz
+<span class="nb">tar </span>xzf actions-runner-linux-arm64-2.308.0.tar.gz
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Configure the Runner</strong>:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./config.sh <span class="nt">--url</span> https://github.com/your-repo-name <span class="nt">--token</span> YOUR_GITHUB_PAT
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Start the Runner</strong>:</p>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./run.sh
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<hr />
+
+<h3 id="4-set-up-the-runner-as-a-system-service"><strong>4. Set Up the Runner as a System Service</strong></h3>
+
+<p>To ensure the runner starts automatically after reboots:</p>
+
+<ol>
+  <li>
+    <p><strong>Create a Service File</strong>:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>nano /etc/systemd/system/github-runner.service
+</code></pre></div>    </div>
+
+    <p>Add the following content:</p>
+
+    <div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[Unit]</span>
+<span class="py">Description</span><span class="p">=</span><span class="s">GitHub Actions Runner</span>
+<span class="py">After</span><span class="p">=</span><span class="s">network.target</span>
+
+<span class="nn">[Service]</span>
+<span class="py">ExecStart</span><span class="p">=</span><span class="s">/home/pi/actions-runner/run.sh</span>
+<span class="py">WorkingDirectory</span><span class="p">=</span><span class="s">/home/pi/actions-runner</span>
+<span class="py">Restart</span><span class="p">=</span><span class="s">always</span>
+<span class="py">User</span><span class="p">=</span><span class="s">pi</span>
+
+<span class="nn">[Install]</span>
+<span class="py">WantedBy</span><span class="p">=</span><span class="s">multi-user.target</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Enable and Start the Service</strong>:</p>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>systemctl daemon-reload
+<span class="nb">sudo </span>systemctl <span class="nb">enable </span>github-runner.service
+<span class="nb">sudo </span>systemctl start github-runner.service
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<hr />
+
+<h3 id="5-verify-the-runner-setup"><strong>5. Verify the Runner Setup</strong></h3>
+
+<ol>
+  <li>Navigate to <strong>Settings &gt; Actions &gt; Runners</strong> in your GitHub repository.</li>
+  <li>Confirm that the runner is listed as <strong>Online</strong>.</li>
+  <li>Test the setup by triggering a GitHub Actions workflow in your repository.</li>
+</ol>
+
+<hr />
+
+<h2 id="optimizing-performance-on-raspberry-pi"><strong>Optimizing Performance on Raspberry Pi</strong></h2>
+
+<h3 id="1-use-swap-space"><strong>1. Use Swap Space</strong></h3>
+
+<p>Raspberry Pi’s limited RAM can be augmented with a swap file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>dphys-swapfile swapoff
+<span class="nb">sudo </span>nano /etc/dphys-swapfile
+</code></pre></div></div>
+
+<p>Increase <code class="language-plaintext highlighter-rouge">CONF_SWAPSIZE</code> to 2048 (2GB).</p>
+
+<p>Restart the swap service:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>dphys-swapfile setup
+<span class="nb">sudo </span>dphys-swapfile swapon
+</code></pre></div></div>
+
+<h3 id="2-use-cooling-solutions"><strong>2. Use Cooling Solutions</strong></h3>
+
+<p>Install a fan or heatsink to prevent thermal throttling during high workloads.</p>
+
+<h3 id="3-limit-concurrent-jobs"><strong>3. Limit Concurrent Jobs</strong></h3>
+
+<p>Restrict the number of concurrent jobs to avoid overloading the Raspberry Pi:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">build</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">self-hosted</span>
+    <span class="na">concurrency</span><span class="pi">:</span> <span class="m">1</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="diagrams-and-supporting-images"><strong>Diagrams and Supporting Images</strong></h2>
+
+<h3 id="1-network-diagram"><strong>1. Network Diagram</strong></h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[GitHub Repo] -&gt; [Raspberry Pi GitHub Runner] -&gt; [Docker Container] -&gt; [Action Execution]
+</code></pre></div></div>
+
+<h3 id="2-workflow-trigger-example"><strong>2. Workflow Trigger Example</strong></h3>
+
+<p>Create a sample GitHub Actions YAML file:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">Build on Self-Hosted Runner</span>
+
+<span class="na">on</span><span class="pi">:</span>
+  <span class="na">push</span><span class="pi">:</span>
+    <span class="na">branches</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">main</span>
+
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">build</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">self-hosted</span>
+    <span class="na">steps</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Checkout Code</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v3</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Run Tests</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="s">echo "Running Tests"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="conclusion"><strong>Conclusion</strong></h2>
+
+<p>Using a Raspberry Pi to self-host GitHub Action runners is a practical solution for developers seeking control, customization, and cost-efficiency in their CI/CD pipelines. With careful setup and optimization, you can leverage the Raspberry Pi’s versatility to handle workflows reliably. This guide provides all the steps necessary to transform your Raspberry Pi into a dependable GitHub Actions runner.</p>
+
+<hr />
+
+<p><strong>FAQ</strong></p>
+
+<h3 id="1-can-i-use-older-raspberry-pi-models"><strong>1. Can I use older Raspberry Pi models?</strong></h3>
+
+<p>Yes, but models like the Raspberry Pi 3B+ may struggle with performance. Raspberry Pi 4B or newer is recommended.</p>
+
+<h3 id="2-is-docker-necessary-for-self-hosting"><strong>2. Is Docker necessary for self-hosting?</strong></h3>
+
+<p>No, but it simplifies dependency management and sandboxing.</p>
+
+<h3 id="3-how-many-runners-can-i-host-on-one-raspberry-pi"><strong>3. How many runners can I host on one Raspberry Pi?</strong></h3>
+
+<p>It depends on the workload and available resources. For heavy tasks, limit to one runner.</p>
+
+<h3 id="4-what-happens-if-the-runner-goes-offline"><strong>4. What happens if the runner goes offline?</strong></h3>
+
+<p>If you’ve set up the runner as a system service, it will automatically restart.</p>
+
+<h3 id="5-can-i-self-host-runners-for-multiple-repositories"><strong>5. Can I self-host runners for multiple repositories?</strong></h3>
+
+<p>Yes, you can configure the runner for different repositories or organizations.</p>
+
+<h3 id="6-is-self-hosting-secure"><strong>6. Is self-hosting secure?</strong></h3>
+
+<p>Yes, but ensure your Raspberry Pi is updated and protected behind a firewall.</p>
+
+  </div><a class="u-url" href="/2024/12/14/github-actions-self-hosted-runners-with-raspberry-pi.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Faulkners Dev Blog</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Faulkners Dev Blog</li><li><a class="u-email" href="mailto:shaun.faulkner24@gmail.com">shaun.faulkner24@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Faulkner368"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Faulkner368</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Discover insights, tutorials, and trends in programming and technology, covering everything from backend to frontend, DevOps to design. Whether you&#39;re a seasoned coder or just starting out, this blog is your resource for leveling up your skills and staying inspired.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
